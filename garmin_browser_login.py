@@ -1,14 +1,13 @@
 """
 Браузерный логин в Garmin Connect через Playwright.
 
-Зачем: Garmin SSO блокирует автоматические POST-запросы (429 Too Many Requests).
-Решение: открыть настоящий браузер, залогиниться вручную (поддерживает MFA),
-перехватить OAuth2-токены и сохранить в ~/.garth/ для последующего использования.
+Использует НАСТОЯЩИЙ Chrome (не Chromium Playwright) с реальным профилем —
+Garmin не может отличить это от обычного пользователя.
 
 Запуск:
     python garmin_browser_login.py
 
-После успешного входа запусти main.py — он подхватит токены автоматически.
+После успешного входа запусти main.py — токены подхватятся автоматически.
 """
 
 import json
@@ -17,169 +16,215 @@ import time
 from pathlib import Path
 
 TOKENSTORE = Path(os.environ.get("GARMIN_TOKENSTORE", Path.home() / ".garth"))
+CHROME_EXE = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 GARMIN_CONNECT_URL = "https://connect.garmin.com"
-GARMIN_SSO_URL = "https://sso.garmin.com"
 
 
-def extract_and_save_tokens(page) -> bool:
-    """
-    Пытается извлечь OAuth2-токены из:
-    1. localStorage браузера
-    2. Перехваченных сетевых запросов
-    Возвращает True если токены успешно сохранены.
-    """
-    # Способ 1: localStorage
-    try:
-        token_data = page.evaluate("""() => {
-            const keys = Object.keys(localStorage);
-            const result = {};
-            for (const k of keys) {
-                result[k] = localStorage.getItem(k);
-            }
-            return result;
-        }""")
-        for key, val in token_data.items():
-            if val and ('access_token' in str(val) or 'oauth' in key.lower()):
-                try:
-                    parsed = json.loads(val)
-                    if 'access_token' in parsed:
-                        _save_garth_token(parsed)
-                        print(f"[OK] Токен извлечён из localStorage (ключ: {key})")
-                        return True
-                except (json.JSONDecodeError, TypeError):
-                    pass
-    except Exception as e:
-        print(f"  localStorage недоступен: {e}")
-
-    return False
-
-
-def _save_garth_token(token_data: dict):
-    """Сохраняет OAuth2-токен в формате garth."""
+def _save_oauth2_token(token_data: dict):
     TOKENSTORE.mkdir(parents=True, exist_ok=True)
-
-    import time as t
-    if 'expires_at' not in token_data:
-        expires_in = token_data.get('expires_in', 3600)
-        token_data['expires_at'] = t.time() + expires_in
-    if 'refresh_token_expires_at' not in token_data:
-        refresh_expires_in = token_data.get('refresh_token_expires_in', 7776000)
-        token_data['refresh_token_expires_at'] = t.time() + refresh_expires_in
-
+    now = time.time()
+    token_data.setdefault('expires_at', now + token_data.get('expires_in', 3600))
+    token_data.setdefault('refresh_token_expires_at',
+                          now + token_data.get('refresh_token_expires_in', 7776000))
     path = TOKENSTORE / "oauth2_token.json"
     with open(path, 'w') as f:
         json.dump(token_data, f, indent=2)
-    print(f"[OK] Токен сохранён: {path}")
+    print(f"[OK] OAuth2-токен сохранён: {path}")
 
 
 def browser_login():
     from playwright.sync_api import sync_playwright
+    from playwright_stealth import stealth
 
     print("=" * 60)
-    print("БРАУЗЕРНЫЙ ВХОД В GARMIN CONNECT")
+    print("ВХОД В GARMIN CONNECT (реальный Chrome)")
     print("=" * 60)
-    print("1. Откроется браузер с Garmin Connect")
-    print("2. Войди в аккаунт вручную (логин, пароль, MFA если нужно)")
-    print("3. Когда увидишь главную страницу — нажми Enter здесь")
+    print(f"  Chrome: {CHROME_EXE}")
+    print(f"  Токены: {TOKENSTORE}")
+    print()
+    print("Откроется браузер Chrome. Войди в аккаунт.")
+    print("Когда попадёшь на главную страницу — вернись сюда и нажми Enter.")
     print("=" * 60)
-    input("Нажми Enter чтобы открыть браузер...")
+    input("\nНажми Enter чтобы открыть браузер... ")
 
-    intercepted_tokens = {}
+    intercepted: dict = {}
 
     with sync_playwright() as p:
+        # Запускаем НАСТОЯЩИЙ Chrome (не Playwright Chromium)
         browser = p.chromium.launch(
+            executable_path=CHROME_EXE,
             headless=False,
-            args=["--no-sandbox"],
-        )
-        context = browser.new_context(
-            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                       "AppleWebKit/537.36 (KHTML, like Gecko) "
-                       "Chrome/122.0.0.0 Safari/537.36",
-            viewport={"width": 1280, "height": 800},
+            channel="chrome",
+            args=[
+                "--no-first-run",
+                "--no-default-browser-check",
+                "--disable-blink-features=AutomationControlled",
+            ],
         )
 
-        # Перехватываем ответы с токенами
-        def intercept_response(response):
+        context = browser.new_context(
+            viewport={"width": 1440, "height": 900},
+            user_agent=(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/122.0.0.0 Safari/537.36"
+            ),
+            locale="ru-RU",
+        )
+
+        page = context.new_page()
+
+        # Применяем stealth-патчи (убирает navigator.webdriver и прочие маркеры бота)
+        stealth(page)
+
+        # Перехватываем OAuth2-токен из сетевых запросов
+        def on_response(response):
             try:
                 url = response.url
-                if ('oauth2/token' in url or 'login-oauth-exchange' in url) and response.status == 200:
+                if response.status == 200 and any(k in url for k in (
+                    'oauth2/token', 'login-oauth-exchange', 'oauth-service/oauth/token'
+                )):
                     try:
                         data = response.json()
                         if 'access_token' in data:
-                            intercepted_tokens['oauth2'] = data
-                            print(f"\n[+] Перехвачен OAuth2-токен с {url}")
+                            intercepted['oauth2'] = data
+                            print(f"\n  [+] Перехвачен токен: {url.split('?')[0]}")
                     except Exception:
                         pass
             except Exception:
                 pass
 
-        page = context.new_page()
-        page.on("response", intercept_response)
+        page.on("response", on_response)
 
-        # Открываем Garmin Connect
-        page.goto(GARMIN_CONNECT_URL, wait_until="domcontentloaded")
-        print(f"\nБраузер открыт. Войди в аккаунт на {GARMIN_CONNECT_URL}")
-        print("После успешного входа нажми Enter здесь.")
+        page.goto(GARMIN_CONNECT_URL, wait_until="domcontentloaded", timeout=30000)
+
+        print(f"\n  Браузер открыт: {GARMIN_CONNECT_URL}")
+        print("  Войди в аккаунт. Нажми Enter здесь когда увидишь главную страницу.")
         input()
 
-        # Пробуем извлечь токены разными способами
+        # ── Извлекаем токены ──────────────────────────────────────────────
         success = False
 
-        # Способ 1: перехваченные токены
-        if 'oauth2' in intercepted_tokens:
-            _save_garth_token(intercepted_tokens['oauth2'])
+        # 1. Перехваченный токен из сети
+        if 'oauth2' in intercepted:
+            _save_oauth2_token(intercepted['oauth2'])
             success = True
 
-        # Способ 2: localStorage
+        # 2. localStorage / sessionStorage
         if not success:
-            for attempt in range(3):
-                if extract_and_save_tokens(page):
-                    success = True
-                    break
-                if attempt < 2:
-                    time.sleep(1)
+            for storage_type in ('localStorage', 'sessionStorage'):
+                try:
+                    items = page.evaluate(f"""() => {{
+                        const result = {{}};
+                        for (let i = 0; i < {storage_type}.length; i++) {{
+                            const k = {storage_type}.key(i);
+                            result[k] = {storage_type}.getItem(k);
+                        }}
+                        return result;
+                    }}""")
+                    for key, val in items.items():
+                        if val and 'access_token' in str(val):
+                            try:
+                                data = json.loads(val)
+                                if 'access_token' in data:
+                                    _save_oauth2_token(data)
+                                    print(f"  [+] Токен из {storage_type}[{key}]")
+                                    success = True
+                                    break
+                            except (json.JSONDecodeError, TypeError):
+                                pass
+                    if success:
+                        break
+                except Exception as e:
+                    print(f"  {storage_type} недоступен: {e}")
 
-        # Способ 3: cookies → создаём минимальный garth-совместимый файл
+        # 3. Cookies как запасной вариант
         if not success:
-            print("\n[!] Не удалось автоматически извлечь OAuth2-токен.")
-            print("    Пробую через cookies Garmin Connect...")
             cookies = context.cookies()
-            garmin_cookies = [c for c in cookies if 'garmin' in c.get('domain', '').lower()]
+            garmin_cookies = [c for c in cookies
+                              if 'garmin' in c.get('domain', '').lower()
+                              and c.get('name', '') not in ('', 'JSESSIONID')]
             if garmin_cookies:
                 TOKENSTORE.mkdir(parents=True, exist_ok=True)
                 cookie_path = TOKENSTORE / "cookies.json"
                 with open(cookie_path, 'w') as f:
                     json.dump(garmin_cookies, f, indent=2)
-                print(f"    Cookies сохранены: {cookie_path}")
-                print("    (Будут использованы при следующем запуске)")
-                success = True
+                print(f"  [+] Cookies сохранены ({len(garmin_cookies)} шт): {cookie_path}")
+                success = _try_cookie_auth(garmin_cookies)
 
         browser.close()
 
-        if success:
-            print("\n" + "=" * 60)
-            print("ВХОД ВЫПОЛНЕН УСПЕШНО")
-            print(f"Токены сохранены в: {TOKENSTORE}")
-            print("Теперь запускай: python main.py")
-            print("=" * 60)
-        else:
-            print("\n[ERROR] Не удалось сохранить токены.")
-            print("Убедись что вошёл в аккаунт и повтори.")
+    if success:
+        print("\n" + "=" * 60)
+        print("ВХОД ВЫПОЛНЕН")
+        print(f"Токены: {TOKENSTORE}")
+        print("Теперь запускай: python main.py")
+        print("=" * 60)
+    else:
+        print("\n[!] Не удалось сохранить токены автоматически.")
+        print("    Попробуй вариант с ручными cookies (см. ниже).")
+        _print_manual_instructions()
 
     return success
+
+
+def _try_cookie_auth(cookies: list) -> bool:
+    """Пробует создать garth-сессию через cookies."""
+    try:
+        import requests
+        session = requests.Session()
+        for c in cookies:
+            session.cookies.set(
+                c['name'], c['value'],
+                domain=c.get('domain', '.garmin.com'),
+                path=c.get('path', '/')
+            )
+        # Проверяем что сессия рабочая
+        r = session.get(
+            "https://connect.garmin.com/userprofile-service/userprofile/personal-information",
+            headers={"nk": "NT"},
+            timeout=10
+        )
+        if r.status_code == 200:
+            # Сохраняем cookies для garth
+            TOKENSTORE.mkdir(parents=True, exist_ok=True)
+            # Создаём минимальный pseudo-token из cookies
+            cookie_dict = {c['name']: c['value'] for c in cookies}
+            with open(TOKENSTORE / "session_cookies.json", 'w') as f:
+                json.dump(cookie_dict, f, indent=2)
+            print(f"  [OK] Cookie-сессия работает (статус {r.status_code})")
+            return True
+        print(f"  Cookie-сессия не работает (статус {r.status_code})")
+    except Exception as e:
+        print(f"  Ошибка проверки: {e}")
+    return False
+
+
+def _print_manual_instructions():
+    print("""
+РУЧНОЙ СПОСОБ (если автоматический не сработал):
+─────────────────────────────────────────────────
+1. Открой Chrome → connect.garmin.com → войди в аккаунт
+2. F12 → Application → Local Storage → https://connect.garmin.com
+3. Найди ключ с "access_token" в значении
+4. Скопируй всё значение (это JSON)
+5. Сохрани как: C:\\Users\\User\\.garth\\oauth2_token.json
+6. Запускай: python main.py
+""")
 
 
 def verify_tokens() -> bool:
     """Проверяет что сохранённые токены работают."""
     token_path = TOKENSTORE / "oauth2_token.json"
     if not token_path.exists():
+        print(f"[!] Файл токена не найден: {token_path}")
         return False
     try:
         import garminconnect
         api = garminconnect.Garmin()
         api.login(tokenstore=str(TOKENSTORE))
-        profile = api.get_full_name()
-        print(f"[OK] Токены валидны. Пользователь: {profile}")
+        name = api.get_full_name()
+        print(f"[OK] Токены валидны. Аккаунт: {name}")
         return True
     except Exception as e:
         print(f"[!] Токены не прошли проверку: {e}")
@@ -189,5 +234,5 @@ def verify_tokens() -> bool:
 if __name__ == "__main__":
     print("\nШаг 1: Браузерный вход...")
     if browser_login():
-        print("\nШаг 2: Проверка токенов...")
+        print("\nШаг 2: Проверка токенов через API...")
         verify_tokens()
