@@ -1,0 +1,974 @@
+{
+  "workoutName": "Н4 Т10 — Грудь + Плечи + Пресс",
+  "description": "Апрель 2026. Неделя 4, тренировка 10. Грудь + Плечи + Пресс.",
+  "sportType": {
+    "sportTypeId": 4,
+    "sportTypeKey": "strength_training"
+  },
+  "subSportType": null,
+  "workoutSegments": [
+    {
+      "segmentOrder": 1,
+      "sportType": {
+        "sportTypeId": 4,
+        "sportTypeKey": "strength_training"
+      },
+      "workoutSteps": [
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 1,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": "Если Н3 прошла на 44 → пробуй 46",
+          "exerciseCategory": "BENCH_PRESS",
+          "exerciseName": "MACHINE_CHEST_PRESS",
+          "displayName": "Жим от груди сидя (тренажёр)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 15,
+          "weightValue": 44.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 2,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 120
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 3,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "BENCH_PRESS",
+          "exerciseName": "MACHINE_CHEST_PRESS",
+          "displayName": "Жим от груди сидя (тренажёр)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 10,
+          "weightValue": 44.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 4,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 120
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 5,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "BENCH_PRESS",
+          "exerciseName": "MACHINE_CHEST_PRESS",
+          "displayName": "Жим от груди сидя (тренажёр)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 10,
+          "weightValue": 44.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 6,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 120
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 7,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "BENCH_PRESS",
+          "exerciseName": "MACHINE_CHEST_PRESS",
+          "displayName": "Жим от груди сидя (тренажёр)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 10,
+          "weightValue": 44.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 8,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": "Смена на горизонт — плечевой пояс отдыхает от штанги",
+          "exerciseCategory": "BENCH_PRESS",
+          "exerciseName": "BARBELL_BENCH_PRESS",
+          "displayName": "Жим лёжа гор. (Гант.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 10,
+          "weightValue": 35.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 9,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 105
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 10,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "BENCH_PRESS",
+          "exerciseName": "BARBELL_BENCH_PRESS",
+          "displayName": "Жим лёжа гор. (Гант.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 10,
+          "weightValue": 35.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 11,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 105
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 12,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "BENCH_PRESS",
+          "exerciseName": "BARBELL_BENCH_PRESS",
+          "displayName": "Жим лёжа гор. (Гант.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 10,
+          "weightValue": 35.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 13,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": "Снижение повт. = силовой акцент",
+          "exerciseCategory": "FLY",
+          "exerciseName": "PEC_DECK",
+          "displayName": "Бабочка / Пек-дек (тренажёр)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 12,
+          "weightValue": 45.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 14,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 15,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "FLY",
+          "exerciseName": "PEC_DECK",
+          "displayName": "Бабочка / Пек-дек (тренажёр)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 12,
+          "weightValue": 45.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 16,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 17,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "FLY",
+          "exerciseName": "PEC_DECK",
+          "displayName": "Бабочка / Пек-дек (тренажёр)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 10,
+          "weightValue": 45.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 18,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 19,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "FLY",
+          "exerciseName": "PEC_DECK",
+          "displayName": "Бабочка / Пек-дек (тренажёр)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 10,
+          "weightValue": 45.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 20,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": "Ротация: верхний шкив вместо среднего",
+          "exerciseCategory": "FLY",
+          "exerciseName": "CABLE_CROSSOVER",
+          "displayName": "Сведение (Угл. кроссовер, верхний)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 12,
+          "weightValue": 20.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 21,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 22,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "FLY",
+          "exerciseName": "CABLE_CROSSOVER",
+          "displayName": "Сведение (Угл. кроссовер, верхний)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 12,
+          "weightValue": 20.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 23,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 24,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "FLY",
+          "exerciseName": "CABLE_CROSSOVER",
+          "displayName": "Сведение (Угл. кроссовер, верхний)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 12,
+          "weightValue": 20.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 25,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": "Тот же вес — форма и полный диапазон",
+          "exerciseCategory": "LATERAL_RAISE",
+          "exerciseName": "DUMBBELL_LATERAL_RAISE",
+          "displayName": "Отведение рук в сторону (диаг.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 15,
+          "weightValue": 20.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 26,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 27,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "LATERAL_RAISE",
+          "exerciseName": "DUMBBELL_LATERAL_RAISE",
+          "displayName": "Отведение рук в сторону (диаг.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 15,
+          "weightValue": 20.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 28,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 29,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "LATERAL_RAISE",
+          "exerciseName": "DUMBBELL_LATERAL_RAISE",
+          "displayName": "Отведение рук в сторону (диаг.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 15,
+          "weightValue": 20.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 30,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 31,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "LATERAL_RAISE",
+          "exerciseName": "DUMBBELL_LATERAL_RAISE",
+          "displayName": "Отведение рук в сторону (диаг.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 15,
+          "weightValue": 20.0,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 32,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": "17.5 — нормальный темп; 20 — только если Н3 была лёгкой",
+          "exerciseCategory": "FRONT_RAISE",
+          "exerciseName": "DUMBBELL_FRONT_RAISE",
+          "displayName": "Подъём рук перед собой (Гант.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 12,
+          "weightValue": 17.5,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 33,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 34,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "FRONT_RAISE",
+          "exerciseName": "DUMBBELL_FRONT_RAISE",
+          "displayName": "Подъём рук перед собой (Гант.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 12,
+          "weightValue": 17.5,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 35,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 36,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "FRONT_RAISE",
+          "exerciseName": "DUMBBELL_FRONT_RAISE",
+          "displayName": "Подъём рук перед собой (Гант.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 12,
+          "weightValue": 17.5,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 37,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 90
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 38,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "FRONT_RAISE",
+          "exerciseName": "DUMBBELL_FRONT_RAISE",
+          "displayName": "Подъём рук перед собой (Гант.)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 12,
+          "weightValue": 17.5,
+          "weightUnit": {
+            "unitKey": "kilogram"
+          }
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 39,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": "",
+          "exerciseCategory": "BACK_EXTENSION",
+          "exerciseName": "HYPEREXTENSION",
+          "displayName": "Экстензия (поясница)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 15
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 40,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 60
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 41,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "BACK_EXTENSION",
+          "exerciseName": "HYPEREXTENSION",
+          "displayName": "Экстензия (поясница)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 15
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 42,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 60
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 43,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "BACK_EXTENSION",
+          "exerciseName": "HYPEREXTENSION",
+          "displayName": "Экстензия (поясница)",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 15
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 44,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": "",
+          "exerciseCategory": "CRUNCH",
+          "exerciseName": "CRUNCH",
+          "displayName": "Скручивания",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 20
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 45,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 60
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 46,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "CRUNCH",
+          "exerciseName": "CRUNCH",
+          "displayName": "Скручивания",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 20
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 47,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 60
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 48,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "CRUNCH",
+          "exerciseName": "CRUNCH",
+          "displayName": "Скручивания",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 20
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 49,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": "",
+          "exerciseCategory": "CRUNCH",
+          "exerciseName": "REVERSE_CRUNCH",
+          "displayName": "Обр. скруч. на накл. скамье",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 16
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 50,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 60
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 51,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "CRUNCH",
+          "exerciseName": "REVERSE_CRUNCH",
+          "displayName": "Обр. скруч. на накл. скамье",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 16
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 52,
+          "stepType": {
+            "stepTypeId": 2,
+            "stepTypeKey": "rest"
+          },
+          "childStepId": null,
+          "endCondition": {
+            "conditionTypeKey": "time",
+            "conditionTypeId": 2
+          },
+          "endConditionValue": 60
+        },
+        {
+          "type": "ExecutableStepDTO",
+          "stepOrder": 53,
+          "stepType": {
+            "stepTypeId": 1,
+            "stepTypeKey": "interval"
+          },
+          "childStepId": null,
+          "description": null,
+          "exerciseCategory": "CRUNCH",
+          "exerciseName": "REVERSE_CRUNCH",
+          "displayName": "Обр. скруч. на накл. скамье",
+          "endCondition": {
+            "conditionTypeKey": "reps",
+            "conditionTypeId": 3
+          },
+          "endConditionValue": 16
+        }
+      ]
+    }
+  ]
+}
