@@ -64,7 +64,17 @@ class GarminClient:
             self._connected = True
             return True
         except Exception as e:
-            logger.error("Ошибка подключения: %s: %s", type(e).__name__, e)
+            err_str = str(e)
+            if '429' in err_str:
+                logger.error(
+                    "Garmin SSO заблокировал вход (429 Too Many Requests).\n"
+                    "  Причина: слишком много попыток входа с этого IP.\n"
+                    "  Решение: запусти браузерный логин:\n"
+                    "    python garmin_browser_login.py\n"
+                    "  После этого повтори: python main.py"
+                )
+            else:
+                logger.error("Ошибка подключения: %s: %s", type(e).__name__, e)
             return False
 
     def get_existing_workouts(self) -> list[dict]:
