@@ -1,20 +1,27 @@
 """
 Клиент Garmin Connect.
-- Аутентификация через GARMIN_EMAIL / GARMIN_PASSWORD (переменные окружения)
-  или интерактивный ввод (getpass — пароль не выводится в терминал).
-- Логин/пароль НИКОГДА не логируются.
-- Для загрузки использует garminconnect.upload_workout() → garth.connectapi POST.
+
+Стратегия аутентификации (избегает 429 Too Many Requests):
+  1. Проверяем наличие сохранённых OAuth-токенов (~/.garth/).
+  2. Если токены есть — используем их (без SSO, без пароля).
+  3. Если токенов нет — логинимся email/password, сохраняем токены.
+
+Токены хранятся в GARMIN_TOKENSTORE (по умолчанию ~/.garth/).
+Логин/пароль НИКОГДА не логируются.
 """
 
 import getpass
 import json
 import logging
 import os
+from pathlib import Path
 from typing import Optional
 
 from garminconnect.workout import FitnessEquipmentWorkout
 
 logger = logging.getLogger(__name__)
+
+DEFAULT_TOKENSTORE = str(Path.home() / ".garth")
 
 
 class GarminClient:
@@ -23,6 +30,22 @@ class GarminClient:
         self._connected = False
 
     def connect(self) -> bool:
+        import garminconnect
+
+        tokenstore = os.environ.get('GARMIN_TOKENSTORE', DEFAULT_TOKENSTORE)
+
+        # ── Попытка 1: используем сохранённые токены ──────────────────────
+        if os.path.isdir(tokenstore):
+            try:
+                self.api = garminconnect.Garmin()
+                self.api.login(tokenstore=tokenstore)
+                logger.info("Аутентификация по сохранённым токенам (%s): OK", tokenstore)
+                self._connected = True
+                return True
+            except Exception as e:
+                logger.warning("Токены недействительны (%s), пробую email/пароль: %s", tokenstore, e)
+
+        # ── Попытка 2: email + пароль → сохранить токены ──────────────────
         email = os.environ.get('GARMIN_EMAIL') or input('Garmin Connect email: ').strip()
         password = os.environ.get('GARMIN_PASSWORD') or getpass.getpass('Garmin Connect password: ')
 
@@ -31,10 +54,13 @@ class GarminClient:
             return False
 
         try:
-            import garminconnect
             self.api = garminconnect.Garmin(email, password)
             self.api.login()
-            logger.info("Подключение к Garmin Connect: OK")
+
+            # Сохраняем токены чтобы следующий запуск не делал SSO
+            Path(tokenstore).mkdir(parents=True, exist_ok=True)
+            self.api.garth.dump(tokenstore)
+            logger.info("Подключение OK. Токены сохранены в: %s", tokenstore)
             self._connected = True
             return True
         except Exception as e:
